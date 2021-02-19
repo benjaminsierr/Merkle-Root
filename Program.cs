@@ -23,9 +23,9 @@ namespace Merkle_Root
 
                 //first hash run
             byte[] tx1_2Bytes = Encoding.ASCII.GetBytes(tx1_2Hash);
-            byte[] tx1_2Hash_first = SHA256.Create().ComputeHash(tx1_2Bytes);
+            string tx1_2Hash_first = BitConverter.ToString(SHA256.Create().ComputeHash(tx1_2Bytes)).Replace("-", "").ToLower();
                 //second hash run
-            string tx12Hash = BitConverter.ToString(SHA256.Create().ComputeHash(tx1_2Hash_first)).Replace("-", "").ToLower();
+            string tx12Hash = BitConverter.ToString(SHA256.Create().ComputeHash(Encoding.ASCII.GetBytes(tx1_2Hash_first))).Replace("-", "").ToLower();
 
             Console.WriteLine("Tx12 Hash: " + tx12Hash);
 
@@ -35,8 +35,8 @@ namespace Merkle_Root
             string tx3_4Hash = tx3Hash + tx4Hash;
 
             byte[] tx3_4Bytes = Encoding.ASCII.GetBytes(tx3_4Hash);
-            byte[] tx3_4Hash_first = SHA256.Create().ComputeHash(tx3_4Bytes);
-            string tx34Hash = BitConverter.ToString(SHA256.Create().ComputeHash(tx3_4Hash_first)).Replace("-", "").ToLower();
+            string tx3_4Hash_first = BitConverter.ToString(SHA256.Create().ComputeHash(tx3_4Bytes)).Replace("-", "").ToLower();
+            string tx34Hash = BitConverter.ToString(SHA256.Create().ComputeHash(Encoding.ASCII.GetBytes(tx3_4Hash_first))).Replace("-", "").ToLower();
             Console.WriteLine("Tx34 Hash: " + tx34Hash);
 
             // 4. With the TX12 and TX34 hashes you are ready to calculate the Merkle Root(in this case the TX1234 hashes). Concatenate TX12 with
@@ -45,8 +45,8 @@ namespace Merkle_Root
             string tx12_34Hash = tx12Hash + tx34Hash;
 
             byte[] tx12_34bytes = Encoding.ASCII.GetBytes(tx12_34Hash);
-            byte[] tx12_34Hash_first = SHA256.Create().ComputeHash(tx12_34bytes);
-            string tx1234Hash = BitConverter.ToString(SHA256.Create().ComputeHash(tx12_34Hash_first)).Replace("-", "").ToLower();
+            string tx12_34Hash_first = BitConverter.ToString(SHA256.Create().ComputeHash(tx12_34bytes)).Replace("-", "").ToLower();
+            string tx1234Hash = BitConverter.ToString(SHA256.Create().ComputeHash(Encoding.ASCII.GetBytes(tx12_34Hash_first))).Replace("-", "").ToLower();
             Console.WriteLine("Merkle Root: " + tx1234Hash);
 
         }
